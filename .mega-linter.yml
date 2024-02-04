@@ -1,0 +1,27 @@
+---
+# Configuration file for MegaLinter
+#
+# See all available variables at https://megalinter.io/latest/config-file/ and in
+# linters documentation
+
+APPLY_FIXES: none
+
+DISABLE:
+  - COPYPASTE
+  - SPELL
+
+DISABLE_LINTERS:
+  - REPOSITORY_DEVSKIM
+
+SHOW_ELAPSED_TIME: true
+FILEIO_REPORTER: false
+FLAVOR_SUGGESTIONS: false
+
+DISABLE_ERRORS_LINTERS:
+  - REPOSITORY_GITLEAKS # Git leaks (need to be disabled since we need keys/secrets in the repo)
+  - REPOSITORY_CHECKOV # Infrastructure as code static analysis (some false positives due to empty files)
+  - REPOSITORY_KICS # Same as checkov
+  - REPOSITORY_GRYPE # Package vulnerability scanner
+  - REPOSITORY_TRIVY # Same as GRYPE
+
+TERRAFORM_KICS_FILTER_REGEX_EXCLUDE: '.github/workflows/.*'
