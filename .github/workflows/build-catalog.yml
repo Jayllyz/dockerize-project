@@ -1,0 +1,24 @@
+name: Build catalog
+
+on: 
+    pull_request:
+
+jobs:
+    build-dev:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Build Dockerfiles
+              run: |
+                docker build -t catalog-client ./tv-shows-catalog/client --target dev
+                docker build -t catalog-server ./tv-shows-catalog/server --target dev
+    build-prod:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Build Dockerfiles
+              run: |
+                docker build -t catalog-client ./tv-shows-catalog/client --target prod
+                docker build -t catalog-server ./tv-shows-catalog/server --target prod
