@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  server:
+    image: server-backend
+    container_name: server-backend
+    build:
+      context: ./server
+      target: prod
+      dockerfile: Dockerfile
+    restart: unless-stopped
+
+  client:
+    image: client-frontend
+    container_name: client-frontend
+    build:
+      context: ./client
+      target: prod
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - PORT=${FRONT_PROD_PORT}
+      - API_BASE_URL=${API_BASE_URL}
+
+  caddy:
+    image: caddy:2.7-alpine
+    container_name: caddy-service
+    build:
+      context: ./caddy
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - FRONT_PORT=${FRONT_PROD_PORT}
+      - BACK_PORT=${BACK_PORT}
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - server
+      - client
