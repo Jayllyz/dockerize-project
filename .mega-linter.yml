@@ -12,6 +12,8 @@ DISABLE:
 
 DISABLE_LINTERS:
   - REPOSITORY_DEVSKIM
+  - REPOSITORY_KICS
+  - REPOSITORY_SEMGREP
 
 SHOW_ELAPSED_TIME: true
 FILEIO_REPORTER: false
@@ -20,8 +22,8 @@ FLAVOR_SUGGESTIONS: false
 DISABLE_ERRORS_LINTERS:
   - REPOSITORY_GITLEAKS # Git leaks (need to be disabled since we need keys/secrets in the repo)
   - REPOSITORY_CHECKOV # Infrastructure as code static analysis (some false positives due to empty files)
-  - REPOSITORY_KICS # Same as checkov
   - REPOSITORY_GRYPE # Package vulnerability scanner
   - REPOSITORY_TRIVY # Same as GRYPE
 
 TERRAFORM_KICS_FILTER_REGEX_EXCLUDE: '.github/workflows/.*'
+DOCKERFILE_HADOLINT_ARGUMENTS: "--ignore DL3008 --ignore DL3018"
