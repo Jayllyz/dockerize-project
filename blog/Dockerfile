@@ -27,3 +27,13 @@ RUN chown -R "${USER_NAME}":"${GROUP_NAME}" /app /usr/local/cargo
 
 USER $USER_NAME
 ENTRYPOINT [ "/app/entrypoint.sh" ]
+
+FROM builder as prod
+ENV APP_ENV=production
+
+RUN cargo install --path . && \
+    cp /usr/local/cargo/bin/blog . && \
+    chown -R "${USER_NAME}":"${GROUP_NAME}" /app
+
+USER $USER_NAME
+ENTRYPOINT [ "/app/entrypoint.sh" ]
