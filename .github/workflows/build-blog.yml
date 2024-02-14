@@ -1,0 +1,22 @@
+name: Build blog
+
+on:
+    pull_request:
+
+jobs:
+    build-dev:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Build Dockerfiles
+              run: |
+                docker build -t blog ./blog --target dev
+    build-prod:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Build Dockerfiles
+              run: |
+                docker build -t blog ./blog --target prod
