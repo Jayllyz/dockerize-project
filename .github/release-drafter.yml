@@ -7,11 +7,17 @@ categories:
   - title: '🐛 Bug Fixes'
     labels:
       - 'fix'
+  - title: '🔨 Refactor'
+    labels:
+      - 'refactor'
+  - title: '📚 Documentation'
+    labels:
+      - 'documentation'
   - title: '🧰 Maintenance'
     labels:
       - 'dependencies'
-      - 'docs'
       - 'maintenance'
+      - 'ci'
 version-resolver:
   major:
     labels:
@@ -24,6 +30,6 @@ version-resolver:
       - 'patch'
   default: patch
 template: |
-  ## What's Changed
+  ## Changelog
 
   $CHANGES
