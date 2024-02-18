@@ -9,4 +9,4 @@ nodes_modules
 .idea
 .vscode
 .docker
-
+.env.example

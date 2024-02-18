@@ -31,7 +31,9 @@ USER node
 CMD ["npm", "run", "start:prod"]
 
 # Production
-FROM build as prod
+FROM base as prod
 ENV NODE_ENV=production
+COPY --from=build /app/dist /app/dist
+COPY --from=build /app/node_modules /app/node_modules
 USER node
 CMD ["node", "dist/main.js"]

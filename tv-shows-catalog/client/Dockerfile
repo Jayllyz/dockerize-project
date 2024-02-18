@@ -34,7 +34,10 @@ USER node
 CMD ["npm", "run", "preview"]
 
 # Production
-FROM build as prod
+FROM base as prod
 ENV NODE_ENV=production
+COPY --from=build /app/build /app/build
+COPY --from=build /app/node_modules /app/node_modules
+COPY --from=build /app/.env /app/.env
 USER node
 CMD ["node", "build/index.js"]
