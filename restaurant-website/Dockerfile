@@ -36,3 +36,32 @@ EXPOSE ${PORT}
 RUN chmod +x entrypoint.sh
 
 ENTRYPOINT [ "./entrypoint.sh" ]
+
+# Production
+FROM php:8.3-fpm-alpine as prod
+WORKDIR /var/www/html
+
+ENV APP_ENV=prod
+ENV USER=www-data
+
+RUN apk add --no-cache icu-dev && \
+    docker-php-ext-configure intl && \
+    docker-php-ext-install intl  && \
+    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+COPY --chown=${USER}:${USER} composer.json composer.lock ./
+
+USER ${USER}
+
+RUN composer install --no-scripts --no-dev --optimize-autoloader
+
+COPY --chown=${USER}:${USER} . .
+
+RUN chmod +x entrypoint.sh
+
+HEALTHCHECK --interval=5s --timeout=3s \
+    CMD ["ps", "-ef", "|", "grep php-fpm"]
+
+ENTRYPOINT [ "./entrypoint.sh" ]

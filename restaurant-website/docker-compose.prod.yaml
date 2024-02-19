@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  php:
+    container_name: php
+    build:
+      context: .
+      target: prod
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html:rw
+      - /var/www/html/vendor
+
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - .:/var/www/html:ro
+    depends_on:
+      php:
+        condition: service_healthy
