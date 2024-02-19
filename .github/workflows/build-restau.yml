@@ -1,7 +1,10 @@
 name: Build restaurant
 
 on:
-    pull_request:
+  pull_request:
+
+permissions:
+  contents: read
 
 jobs:
     build-dev:
