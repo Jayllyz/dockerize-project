@@ -11,17 +11,17 @@ This project aims to demonstrate how to properly use Docker for any kind of proj
 
 It contains 3 services:
 
-- blog (Rust)
-- Catalog (Node.js)
-- Restaurant (php)
+- [Blog](./blog) (Rust)
+- [Catalog](./tv-shows-catalog) (Node.js)
+- [Restaurant](./restaurant-website) (Php)
 
 For each service, there is a development and production environment, and a CI pipeline to make sure everything is building correctly.
 
 ## Authors
 
-@Jayllyz
-@Metololo
-@userMeh
+- [@Jayllyz](https://www.github.com/Jayllyz)
+- [@Metololo](https://www.github.com/Metololo)
+- [@userMeh](https://www.github.com/userMeh)
 
 ## License
 
