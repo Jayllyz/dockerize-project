@@ -1,0 +1,6 @@
+.env.*
+/var/
+/vendor/
+Dockerfile*
+docker-compose*
+README.md
