@@ -2,7 +2,7 @@
 set -e
 
 if [ "${APP_ENV}" = "dev" ]; then
-    chown -R "${USER}":"${USER}" /var/www/html
+    php bin/console importmap:install
     symfony server:start --no-tls
 fi
 
