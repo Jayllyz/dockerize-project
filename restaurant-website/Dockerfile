@@ -20,13 +20,6 @@ RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' 
     apk add --no-cache symfony-cli
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer 
-
-COPY --chown=${USER}:${USER} composer.json composer.lock ./
-
-USER ${USER}
-
-RUN composer install --no-scripts
-
 COPY --chown=${USER}:${USER} . .
 
 ARG PORT
@@ -34,6 +27,8 @@ ENV PORT=8000
 EXPOSE ${PORT}
 
 RUN chmod +x entrypoint.sh
+
+USER ${USER}
 
 ENTRYPOINT [ "./entrypoint.sh" ]
 
@@ -50,18 +45,13 @@ RUN apk add --no-cache icu-dev && \
     mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-
-COPY --chown=${USER}:${USER} composer.json composer.lock ./
-
-USER ${USER}
-
-RUN composer install --no-scripts --no-dev --optimize-autoloader
-
 COPY --chown=${USER}:${USER} . .
 
 RUN chmod +x entrypoint.sh
 
 HEALTHCHECK --interval=5s --timeout=3s \
     CMD ["ps", "-ef", "|", "grep php-fpm"]
+
+USER ${USER}
 
 ENTRYPOINT [ "./entrypoint.sh" ]
