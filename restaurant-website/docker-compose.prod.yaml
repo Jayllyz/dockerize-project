@@ -11,7 +11,6 @@ services:
     working_dir: /var/www/html
     volumes:
       - .:/var/www/html:rw
-      - /var/www/html/vendor
 
   nginx:
     container_name: nginx
