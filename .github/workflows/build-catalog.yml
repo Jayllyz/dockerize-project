@@ -23,6 +23,5 @@ jobs:
               uses: actions/checkout@v4
             - name: Build Dockerfiles
               run: |
-                cp ./tv-shows-catalog/client/.env.example ./tv-shows-catalog/client/.env
                 docker build -t catalog-client ./tv-shows-catalog/client --target prod
                 docker build -t catalog-server ./tv-shows-catalog/server --target prod

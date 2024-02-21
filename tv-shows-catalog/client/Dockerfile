@@ -4,9 +4,6 @@ WORKDIR /app
 
 COPY --chown=node:node package*.json .
 
-ARG API_BASE_URL
-ENV API_BASE_URL=$API_BASE_URL
-
 ENV PORT $PORT
 EXPOSE $PORT
 
@@ -38,6 +35,5 @@ FROM base as prod
 ENV NODE_ENV=production
 COPY --from=build /app/build /app/build
 COPY --from=build /app/node_modules /app/node_modules
-COPY --from=build /app/.env /app/.env
 USER node
 CMD ["node", "build/index.js"]
