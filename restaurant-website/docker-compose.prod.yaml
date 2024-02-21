@@ -2,7 +2,6 @@ version: '3.8'
 
 services:
   php:
-    container_name: php
     build:
       context: .
       target: prod
@@ -13,7 +12,6 @@ services:
       - .:/var/www/html:rw
 
   nginx:
-    container_name: nginx
     build:
       context: .
       dockerfile: Dockerfile.nginx
