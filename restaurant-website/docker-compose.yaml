@@ -9,6 +9,6 @@ services:
     restart: unless-stopped
     working_dir: /var/www/html
     ports:
-      - 8000:8000
+      - "${PHP_DEV_PORT}:80"
     volumes:
       - .:/var/www/html

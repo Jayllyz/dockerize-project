@@ -28,7 +28,7 @@ services:
       DATABASE_URL: ${DATABASE_URL}
       ROCKET_ADDRESS: 0.0.0.0
     ports:
-      - "8000:8000"
+      - "${BLOG_PORT}:8000"
     depends_on:
       db:
         condition: service_healthy
