@@ -2,13 +2,13 @@
 FROM rustlang/rust:nightly-slim as base
 WORKDIR /app
 
-ENV USER_ID=65535
-ENV GROUP_ID=65535
+ENV USER_ID=2000
+ENV GROUP_ID=2001
 ENV USER_NAME=blog
 ENV GROUP_NAME=blog
 
 RUN groupadd -g ${GROUP_ID} ${GROUP_NAME} && \
-    useradd -l -u $USER_ID -g ${GROUP_NAME} -m ${USER_NAME} && \
+    useradd -l -u ${USER_ID} -g ${GROUP_NAME} -m ${USER_NAME} && \
     apt-get update && \
     apt-get install -y --no-install-recommends libpq-dev && \
     apt-get clean && \
@@ -38,7 +38,6 @@ FROM base as prod
 ENV APP_ENV=production
 
 COPY --from=builder /usr/local/cargo/bin/blog /app/blog
-COPY --from=builder /app/.env /app/.env
 RUN chown -R "${USER_NAME}":"${GROUP_NAME}" /app
 
 USER ${USER_NAME}

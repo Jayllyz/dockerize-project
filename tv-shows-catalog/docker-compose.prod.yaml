@@ -2,7 +2,6 @@ version: '3.8'
 services:
   server:
     image: server-backend
-    container_name: server-backend
     build:
       context: ./server
       target: prod
@@ -11,7 +10,6 @@ services:
 
   client:
     image: client-frontend
-    container_name: client-frontend
     build:
       context: ./client
       target: prod
@@ -23,7 +21,6 @@ services:
 
   caddy:
     image: caddy:2.7-alpine
-    container_name: caddy-service
     build:
       context: ./caddy
       dockerfile: Dockerfile
@@ -32,8 +29,8 @@ services:
       - FRONT_PORT=${FRONT_PROD_PORT}
       - BACK_PORT=${BACK_PORT}
     ports:
-      - "80:80"
-      - "443:443"
+      - "${CADDY_HTTP_PORT}:80"
+      - "${CADDY_HTTPS_PORT}:443"
     depends_on:
       - server
       - client

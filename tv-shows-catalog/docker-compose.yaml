@@ -2,7 +2,6 @@ version: '3.8'
 services:
   server:
     image: server-backend
-    container_name: server-backend
     build:
       context: ./server
       target: dev
@@ -18,7 +17,6 @@ services:
 
   client:
     image: client-frontend
-    container_name: client-frontend
     build:
       context: ./client
       target: dev
