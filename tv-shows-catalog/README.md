@@ -1,28 +1,55 @@
 # *Dockerize Everything!* - Application : Make Me Watch
 
-## Objectif
-
-Conteneuriser l'application Make Me Watch pour qu'elle s'exécute en mode production à l'aide de Docker.
+[![Build catalog](https://github.com/Jayllyz/dockerize-project/actions/workflows/build-catalog.yml/badge.svg)](https://github.com/Jayllyz/dockerize-project/actions/workflows/build-catalog.yml)
 
 ## Architecture
 
-L'application web Make Me Watch permet d'afficher un catalogue des 250 meilleures séries TV
-(selon [le classement TV Maze](https://tvmaze.com)). Il est possible d'afficher les détails
-d'une série TV en cliquant sur son poster.
+The Make Me Watch web application displays a catalog of the 250 best TV series
+(according to [the TV Maze ranking](https://tvmaze.com)). It is possible to display the details
+of a TV series by clicking on its poster.
 
-L'application est composée :
+The application consists of :
 
-- d'une single-page application ("client") basée sur le framework
-  frontend [SvelteKit](https://kit.svelte.dev/docs/introduction) ;
-- d'une API ("serveur") basée sur le framework backend [NestJS](https://docs.nestjs.com).
+- a single-page application ("client") based on the
+  frontend framework [SvelteKit](https://kit.svelte.dev/docs/introduction);
+- an API ("server") based on the backend framework [NestJS](https://docs.nestjs.com).
 
-Vous êtes invités à lire le README du [client](./client/README.md) et du [serveur](./server/README.md) afin de savoir
-comment construire les différentes applications en mode production.
+## Environment variables
 
-## Fichiers à compléter
+| Variable           | Description                                    | Exemple                 |
+|--------------------|------------------------------------------------|-------------------------|
+| API_BASE_URL       | URL of the API                                 | <http://localhost:3000> |
+| FRONT_DEV_PORT     | Port of the application in development mode    | 5173                    |
+| FRONT_PREPROD_PORT | Port of the application in pre-production mode | 5173                    |
+| FRONT_PROD_PORT    | Port of the application in production mode     | 5173                    |
+| BACK_PORT          | Port of the backend application                | 3000                    |
+| CADDY_HTTP_PORT    | HTTP port for the web server                   | 80                      |
+| CADDY_HTTPS_PORT   | HTTPS port for the web server                  | 443                     |
 
-- `docker-compose.yaml` : Fichier permettant d'orchestrer le client et le serveur via Docker Compose ;
-- `client/Dockerfile` : Dockerfile permettant de construire l'image du client Make Me Watch en mode production ;
-- `server/Dockerfile` : Dockerfile permettant de construire l'image du serveur Make Me Watch en mode production.
+## Usage
 
-> Bon courage !
+Ensure that you have a `.env` file with the environment variables.
+
+```bash
+cp .env.example .env
+```
+
+## Development
+
+```bash
+docker compose up
+```
+
+## Pre-production
+
+Edit the target of the services in the `docker-compose.prod.yml` file to `pre-prod` and then run:
+
+```bash
+docker compose -f docker-compose.prod.yml up
+```
+
+## Production
+
+```bash
+docker compose -f docker-compose.prod.yml up
+```
