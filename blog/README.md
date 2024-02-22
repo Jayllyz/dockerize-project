@@ -1,111 +1,40 @@
 # *Dockerize Everything!* - Application : The Computer Club's Blog
 
-## Objectif
-
-Conteneuriser l'application The Computer Club's Blog pour qu'elle s'exécute en mode production à l'aide de Docker.
+[![Build blog](https://github.com/Jayllyz/dockerize-project/actions/workflows/build-blog.yml/badge.svg)](https://github.com/Jayllyz/dockerize-project/actions/workflows/build-blog.yml)
 
 ## Architecture
 
-L'application web The Computer Club's Blog est le blog d'une association de développeurs passionnés. Les lecteurs
-peuvent lister les articles publiés par l'association, et lire un article.
+The Computer Club's Blog is the blog of an association of passionate developers. Readers can
+can list articles published by the association, and read an article.
 
-Les développeurs ont ajouté un easter egg : un endpoint API permettant de créer ses propres articles afin de publier
-ce que vous souhaitez. Il ne vous reste plus qu'à le trouver !
+The application is based on the [Rocket](https://rocket.rs/) framework.
 
-L'application est basée sur le framework [Rocket](https://rocket.rs/).
+## Environment variables
 
-Vous êtes invités à lire la suite de ce README afin de savoir comment construire l'application en mode production.
+| Variable          | Description              | Exemple                                     |
+|-------------------|--------------------------|---------------------------------------------|
+| POSTGRES_USER     | User of the database     | usersame                                    |
+| POSTGRES_PASSWORD | Password of the database | super_secret                                |
+| POSTGRES_DB       | Name of the database     | blog                                        |
+| DATABASE_URL      | URL of the database      | postgres://user:super_secret@localhost/blog |
+| BLOG_PORT         | Port of the application  | 8000                                        |
 
-## Fichiers à compléter
+## Usage
 
-- `docker-compose.yaml` : Fichier permettant d'orchestrer l'application via Docker Compose ;
-- `Dockerfile` : Dockerfile permettant de construire l'image de l'application The Computer Club's Blog en mode
-  production ;
-
-> Bon courage !
-
-## Prérequis
-
-- Paquets système :
-    - `libpq-dev` (Debian et Alpine Linux)
-- Rust (*nightly* build **obligatoire !**) en dernière version (1.77.0)
-- PostgreSQL 16+
-
-## Variables d'environnement
-
-| Nom            | Description                                                           | Obligatoire ? | Exemple                              |
-|----------------|-----------------------------------------------------------------------|---------------|--------------------------------------|
-| DATABASE_URL   | La chaîne de connexion à la base de données PostgreSQL.               | Oui           | postgres://thomas:admin@db:5432/blog |
-| ROCKET_ADDRESS | L'adresse IP sur laquelle écoute le serveur (`127.0.0.1` par défaut). | Oui           | `0.0.0.0`                            |
-
-## Ports
-
-| Environnement | Valeur par défaut |
-|---------------|-------------------|
-| Développement | 8000              |
-| Production    | 8000              |
-
-## Fonctionnalités
-
-- Afficher tous les articles du blog.
-- Afficher un article du blog.
-- (Secret !) Créer un article de blog.
-
-## Développement
-
-Installer la CLI de `diesel` en utilisant la commande suivante :
+Ensure that you have a `.env` file with the environment variables.
 
 ```bash
-cargo install diesel_cli --no-default-features --features postgres
+cp .env.example .env
 ```
 
-Puis exécuter `diesel migration run` pour initialiser la base de données.
-
-Enfin, lancer `cargo run` pour lancer l'application en mode développement.
-
-## Production
-
-Pour créer une version de production de l'application :
-
-### Compilation de l'application
-
-Compiler l'application en utilisant la commande suivante :
+### Development
 
 ```bash
-cargo install --path .
+docker compose up
 ```
 
-Copier le binaire nouvellement créé dans votre dossier courant :
+### Production
 
 ```bash
-cp /usr/local/cargo/bin/blog ./blog
+docker compose -f docker-compose.prod.yml up
 ```
-
-### Exécution des migrations
-
-Installer la CLI de `diesel` en utilisant la commande suivante :
-
-```bash
-cargo install diesel_cli --no-default-features --features postgres
-```
-
-Puis exécuter `diesel migration run` pour initialiser la base de données.
-
-### Lancer l'application
-
-Enfin, lancer l'application avec la commande suivante :
-
-```bash
-./blog
-```
-
-Le site est maintenant accessible sur http://localhost:8000.
-
-### Notes
-
-- Veillez à ce que les dossiers suivants soient situés dans le même dossier que le binaire `blog` :
-    - `migrations`
-    - `static`
-    - `templates`
-- Assurez-vous d'avoir la base de données démarrée avant l'exécution des migrations.
-- Penser à exécuter les migrations avant de démarrer l'application.
