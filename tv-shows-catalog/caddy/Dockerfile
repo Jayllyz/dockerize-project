@@ -2,7 +2,7 @@ FROM caddy:2.7-alpine
 
 RUN apk add --no-cache nss-tools && \
     mkdir -p /etc/caddy /srv /data/caddy /config/caddy && \
-    adduser --disabled-password --gecos "" --no-create-home caddy && \
+    addgroup -S caddy && adduser -D -S --no-create-home -G caddy caddy && \
     chown -R caddy:caddy /etc/caddy /srv /data /config
 
 COPY ./Caddyfile /etc/caddy/Caddyfile
