@@ -11,7 +11,7 @@ of a TV series by clicking on its poster.
 The application consists of :
 
 - a single-page application ("client") based on the
-  frontend framework [SvelteKit](https://kit.svelte.dev/docs/introduction);
+  frontend framework [SvelteKit](https://kit.svelte.dev/docs/introduction).
 - an API ("server") based on the backend framework [NestJS](https://docs.nestjs.com).
 
 ## Environment variables
