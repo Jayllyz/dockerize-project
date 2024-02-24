@@ -22,7 +22,7 @@ services:
       - API_BASE_URL=${API_BASE_URL}
 
   caddy:
-    image: caddy:2.7-alpine
+    image: caddy-server
     build:
       context: ./caddy
       dockerfile: Dockerfile
