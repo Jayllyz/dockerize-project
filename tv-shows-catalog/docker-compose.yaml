@@ -12,6 +12,8 @@ services:
     volumes:
         - /app/node_modules
         - ./server:/app:rw
+    environment:
+      - PORT=${BACK_PORT}
     ports:
       - "${BACK_PORT}:${BACK_PORT}"
 
@@ -26,6 +28,7 @@ services:
     restart: unless-stopped
     environment:
       - API_BASE_URL=${API_BASE_URL}
+      - PORT=${FRONT_DEV_PORT}
     volumes:
         - /app/node_modules
         - ./client:/app:rw
