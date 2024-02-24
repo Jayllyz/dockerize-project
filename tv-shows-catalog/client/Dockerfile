@@ -7,6 +7,9 @@ COPY --chown=node:node package*.json .
 ENV PORT $PORT
 EXPOSE $PORT
 
+HEALTHCHECK --interval=5s --timeout=1s \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:${PORT} || exit 1
+
 # Development
 FROM base as dev
 ENV NODE_ENV=development

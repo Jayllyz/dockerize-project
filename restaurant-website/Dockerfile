@@ -27,6 +27,9 @@ EXPOSE ${PORT}
 
 RUN chmod +x entrypoint.sh
 
+HEALTHCHECK --interval=5s --timeout=3s \
+    CMD curl --fail http://localhost:${PORT} || exit 1
+
 USER ${USER}
 
 ENTRYPOINT [ "./entrypoint.sh" ]
@@ -49,7 +52,7 @@ COPY --chown=${USER}:${USER} . .
 RUN chmod +x entrypoint.sh
 
 HEALTHCHECK --interval=5s --timeout=3s \
-    CMD ["ps", "-ef", "|", "grep php-fpm || exit 1"]
+    CMD ps aux | grep '[p]hp-fpm' || exit 1
 
 USER ${USER}
 

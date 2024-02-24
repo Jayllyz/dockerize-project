@@ -7,6 +7,8 @@ services:
       target: prod
       dockerfile: Dockerfile
     restart: unless-stopped
+    environment:
+      - PORT=${BACK_PORT}
 
   client:
     image: client-frontend

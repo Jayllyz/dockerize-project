@@ -10,13 +10,16 @@ ENV GROUP_NAME=blog
 RUN groupadd -g ${GROUP_ID} ${GROUP_NAME} && \
     useradd -l -u ${USER_ID} -g ${GROUP_NAME} -m ${USER_NAME} && \
     apt-get update && \
-    apt-get install -y --no-install-recommends libpq-dev && \
+    apt-get install -y --no-install-recommends libpq-dev curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 COPY entrypoint.sh .
 RUN cargo install diesel_cli --no-default-features --features postgres && \
     chmod +x entrypoint.sh
+
+HEALTHCHECK --interval=30s --timeout=1s \
+    CMD curl --fail http://localhost:8000/health || exit 1
 
 # Development
 FROM base as dev

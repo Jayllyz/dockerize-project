@@ -22,5 +22,8 @@ localhost:443 {
 	handle_path /api {
 		reverse_proxy server:{$BACK_PORT}
 	}
+	handle_path /health {
+		respond "OK" 200
+	}
 	reverse_proxy client:{$FRONT_PORT}
 }
