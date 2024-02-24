@@ -1,13 +1,12 @@
 extern crate diesel;
 extern crate rocket;
-use diesel::pg::PgConnection;
+use crate::models;
+use crate::schema;
 use diesel::prelude::*;
 use dotenvy::dotenv;
 use rocket::response::{status::Created, Debug};
-use rocket::serde::{json::Json};
-use rocket::{get, post };
-use crate::models;
-use crate::schema;
+use rocket::serde::json::Json;
+use rocket::{get, post};
 use rocket_dyn_templates::{context, Template};
 use std::env;
 
@@ -33,7 +32,10 @@ pub fn list_posts() -> Template {
         .load::<Post>(connection)
         .expect("Error loading posts");
 
-    Template::render("posts", context! {title: "All posts", posts: &results, count: results.len()})
+    Template::render(
+        "posts",
+        context! {title: "All posts", posts: &results, count: results.len()},
+    )
 }
 
 #[get("/posts/<id>")]
@@ -56,8 +58,8 @@ pub fn get_post(id: i32) -> Template {
 
 #[post("/posts", format = "json", data = "<post>")]
 pub fn create_post(post: Json<models::NewPost>) -> Result<Created<Json<models::Post>>> {
+    use self::models::{NewPost, Post};
     use self::schema::posts::dsl::*;
-    use self::models::{NewPost,Post};
 
     let connection = &mut establish_connection();
 
@@ -75,4 +77,9 @@ pub fn create_post(post: Json<models::NewPost>) -> Result<Created<Json<models::P
         .expect("Error saving new post");
 
     Ok(Created::new("/").body(Json(inserted_post)))
+}
+
+#[get("/health", format = "json")]
+pub fn health() -> Result<Json<&'static str>> {
+    Ok(Json("OK"))
 }
