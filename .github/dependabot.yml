@@ -5,4 +5,16 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "/blog"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "docker"
+    directory: "/restaurant-website"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "docker"
+    directory: "/tv-shows-catalog"
+    schedule:
+      interval: "monthly"
 ...
