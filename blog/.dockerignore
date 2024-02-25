@@ -1,5 +1,11 @@
-.env.example
-docker-compose.yaml
-docker-compose.dev.yaml
-Dockerfile
-README.md
+.env*
+**/*.md
+**/*.log
+.git*
+Dockerfile*
+docker-compose*
+.dockerignore
+.vscode/
+.idea/
+
+target/

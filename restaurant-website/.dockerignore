@@ -1,6 +1,11 @@
-.env.*
-/var/
-/vendor/
+**/*.md
+**/*.log
+.git*
 Dockerfile*
 docker-compose*
-README.md
+.dockerignore
+.vscode/
+.idea/
+
+var/
+**/vendor/

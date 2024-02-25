@@ -35,6 +35,7 @@ services:
       - ./static:/app/static
       - ./templates:/app/templates
       - ./migrations:/app/migrations
+      - ./src:/app/src
 
 volumes:
   db_data:

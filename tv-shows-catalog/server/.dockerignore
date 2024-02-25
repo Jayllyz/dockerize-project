@@ -1,12 +1,13 @@
-**/README.md
-**/npm-debug.log
-**/dist
-**/build
-Dockerfile
-.git
-.gitignore
-nodes_modules
-.idea
-.vscode
-.docker
+.env*
+**/*.md
+**/*.log
+.git*
+Dockerfile*
+docker-compose*
+.dockerignore
+.vscode/
+.idea/
 
+dist/
+build/
+node_modules/
