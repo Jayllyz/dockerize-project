@@ -1,4 +1,5 @@
-version: '3'
+# Development
+version: '3.8'
 services:
   db:
     image: postgres:16-alpine
@@ -35,7 +36,6 @@ services:
       - ./static:/app/static
       - ./templates:/app/templates
       - ./migrations:/app/migrations
-      - ./src:/app/src
 
 volumes:
   db_data:

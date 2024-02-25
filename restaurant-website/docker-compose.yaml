@@ -1,5 +1,5 @@
+# Development 
 version: '3.8'
-
 services:
   php:
     build:
@@ -11,7 +11,4 @@ services:
     ports:
       - "${PHP_DEV_PORT}:80"
     volumes:
-      - ./public:/var/www/html/public:rw
-      - ./src:/var/www/html/src:rw
-      - ./config:/var/www/html/config:rw
-      - ./templates:/var/www/html/templates:rw
+      - .:/var/www/html
