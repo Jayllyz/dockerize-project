@@ -2,6 +2,8 @@ name: Build catalog
 
 on: 
   pull_request:
+    paths:
+      - 'tv-shows-catalog/**'
 
 permissions:
     contents: read
