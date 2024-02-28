@@ -18,6 +18,7 @@ The application is based on the [Rocket](https://rocket.rs/) framework.
 | POSTGRES_DB       | Name of the database     | blog                                        |
 | DATABASE_URL      | URL of the database      | postgres://user:super_secret@localhost/blog |
 | BLOG_PORT         | Port of the application  | 8000                                        |
+| DB_PORT           | Port of the database     | 5432                                        |
 
 ## Usage
 
