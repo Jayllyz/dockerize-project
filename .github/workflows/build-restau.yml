@@ -2,6 +2,8 @@ name: Build restaurant
 
 on:
   pull_request:
+    paths:
+      - 'restaurant-website/**'
 
 permissions:
   contents: read
