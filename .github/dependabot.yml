@@ -14,7 +14,11 @@ updates:
     schedule:
       interval: "monthly"
   - package-ecosystem: "docker"
-    directory: "/tv-shows-catalog"
+    directory: "/tv-shows-catalog/client"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "docker"
+    directory: "/tv-shows-catalog/server"
     schedule:
       interval: "monthly"
 ...
