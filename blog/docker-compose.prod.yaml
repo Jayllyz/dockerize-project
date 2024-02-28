@@ -17,9 +17,7 @@ services:
       - db_data:/var/lib/postgresql/data
     ports:
       - "${DB_PORT}:5432"
-    expose:
-      - "5432"
-
+      
   app:
     build:
       context: .
