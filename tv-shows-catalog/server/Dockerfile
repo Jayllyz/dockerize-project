@@ -1,5 +1,5 @@
 # Base server
-FROM node:20-alpine3.19 as base
+FROM node:21-alpine3.19 as base
 USER node
 WORKDIR /app
 
