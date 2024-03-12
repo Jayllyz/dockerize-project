@@ -40,8 +40,7 @@ RUN cargo install --path .
 FROM base as prod
 ENV APP_ENV=production
 
-COPY --from=builder /usr/local/cargo/bin/blog /app/blog
-RUN chown -R "${USER_NAME}":"${GROUP_NAME}" /app
+COPY --from=builder --chown="${USER_NAME}":"${GROUP_NAME}" /usr/local/cargo/bin/blog /app/blog
 
 USER ${USER_NAME}
 ENTRYPOINT [ "/app/entrypoint.sh" ]
