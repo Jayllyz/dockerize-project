@@ -33,6 +33,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: false
+
       - name: Docker Build server
         id: build_image_server
         uses: docker/build-push-action@v5
@@ -69,7 +70,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: false
-          
+
       - name: Docker Build server
         id: build_image_server
         uses: docker/build-push-action@v5
