@@ -1,5 +1,8 @@
 # Base server
 FROM node:21-alpine3.19 as base
+
+RUN apk add --no-cache libc6-compat
+
 USER node
 WORKDIR /app
 
@@ -33,6 +36,6 @@ CMD ["npm", "run", "start:prod"]
 # Production
 FROM base as prod
 ENV NODE_ENV=production
-COPY --from=build /app/dist /app/dist
-COPY --from=build /app/node_modules /app/node_modules
+COPY --from=build --chown=node:node /app/dist /app/dist
+COPY --from=build --chown=node:node /app/node_modules /app/node_modules
 CMD ["node", "dist/main.js"]
