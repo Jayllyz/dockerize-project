@@ -3,25 +3,57 @@ name: Build blog
 on:
   pull_request:
     paths:
-      - 'blog/**'
+      - "blog/**"
+      - ".github/workflows/build-blog.yml"
 
 permissions:
-    contents: read
+  contents: read
 
 jobs:
-    build-dev:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-            - name: Build Dockerfiles
-              run: |
-                docker build -t blog ./blog --target dev
-    build-prod:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-            - name: Build Dockerfiles
-              run: |
-                docker build -t blog ./blog --target prod
+  build-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Docker Build
+        id: build_image
+        uses: docker/build-push-action@v5
+        with:
+          platforms: linux/amd64
+          context: ./blog
+          file: Dockerfile
+          target: dev
+          builder: ${{ steps.buildx.outputs.name }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
+
+  build-prod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Docker Build
+        id: build_image
+        uses: docker/build-push-action@v5
+        with:
+          platforms: linux/amd64
+          context: ./blog
+          file: Dockerfile
+          target: prod
+          builder: ${{ steps.buildx.outputs.name }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
