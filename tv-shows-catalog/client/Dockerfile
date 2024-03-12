@@ -1,5 +1,8 @@
 # Base client
 FROM node:21-alpine3.19 as base
+
+RUN apk add --no-cache libc6-compat
+
 USER node
 WORKDIR /app
 
@@ -33,5 +36,5 @@ CMD ["npm", "run", "preview"]
 # Production
 FROM base as prod
 ENV NODE_ENV=production
-COPY --from=build /app/build /app/build
+COPY --from=build --chown=node:node /app/build /app/build
 CMD ["node", "build/index.js"]
