@@ -26,8 +26,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           platforms: linux/amd64
-          context: ./tv-shows-catalog/client
-          file: Dockerfile
+          context: .
+          file: ./tv-shows-catalog/client/Dockerfile
           target: dev
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=gha
@@ -39,8 +39,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           platforms: linux/amd64
-          context: ./tv-shows-catalog/server
-          file: Dockerfile
+          context: .
+          file: ./tv-shows-catalog/server/Dockerfile
           target: dev
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=gha
@@ -63,8 +63,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           platforms: linux/amd64
-          context: ./tv-shows-catalog/client
-          file: Dockerfile
+          context: .
+          file: ./tv-shows-catalog/client/Dockerfile
           target: prod
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=gha
@@ -76,8 +76,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           platforms: linux/amd64
-          context: ./tv-shows-catalog/server
-          file: Dockerfile
+          context: .
+          file: ./tv-shows-catalog/server/Dockerfile
           target: prod
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=gha

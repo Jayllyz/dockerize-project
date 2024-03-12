@@ -26,8 +26,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           platforms: linux/amd64
-          context: ./restaurant-website
-          file: Dockerfile
+          context: .
+          file: ./restaurant-website/Dockerfile
           target: dev
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=gha
@@ -50,8 +50,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           platforms: linux/amd64
-          context: ./restaurant-website
-          file: Dockerfile
+          context: .
+          file: ./restaurant-website/Dockerfile
           target: prod
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=gha
