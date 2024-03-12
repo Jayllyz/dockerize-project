@@ -13,6 +13,9 @@ jobs:
   build-dev:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v3
@@ -50,6 +53,9 @@ jobs:
   build-prod:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v3
