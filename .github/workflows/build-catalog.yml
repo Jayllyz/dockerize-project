@@ -4,26 +4,88 @@ on:
   pull_request:
     paths:
       - 'tv-shows-catalog/**'
+      - '.github/workflows/build-catalog.yml'
 
 permissions:
     contents: read
 
 jobs:
-    build-dev:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-            - name: Build Dockerfiles
-              run: |
-                docker build -t catalog-client ./tv-shows-catalog/client --target dev
-                docker build -t catalog-server ./tv-shows-catalog/server --target dev
-    build-prod:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-            - name: Build Dockerfiles
-              run: |
-                docker build -t catalog-client ./tv-shows-catalog/client --target prod
-                docker build -t catalog-server ./tv-shows-catalog/server --target prod
+  build-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Docker Build client
+        id: build_image_client
+        uses: docker/build-push-action@v5
+        with:
+          platforms: linux/amd64
+          context: ./tv-shows-catalog/client
+          file: ./tv-shows-catalog/client/Dockerfile
+          target: dev
+          builder: ${{ steps.buildx.outputs.name }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
+
+      - name: Docker Build server
+        id: build_image_server
+        uses: docker/build-push-action@v5
+        with:
+          platforms: linux/amd64
+          context: ./tv-shows-catalog/server/
+          file: ./tv-shows-catalog/server/Dockerfile
+          target: dev
+          builder: ${{ steps.buildx.outputs.name }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
+
+  build-prod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Docker Build client
+        id: build_image_client
+        uses: docker/build-push-action@v5
+        with:
+          platforms: linux/amd64
+          context: ./tv-shows-catalog/client
+          file: ./tv-shows-catalog/client/Dockerfile
+          target: prod
+          builder: ${{ steps.buildx.outputs.name }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
+
+      - name: Docker Build server
+        id: build_image_server
+        uses: docker/build-push-action@v5
+        with:
+          platforms: linux/amd64
+          context: ./tv-shows-catalog/server/
+          file: ./tv-shows-catalog/server/Dockerfile
+          target: prod
+          builder: ${{ steps.buildx.outputs.name }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
