@@ -1,7 +1,8 @@
 # Base server
-FROM node:21-alpine3.19 as base
+FROM node:21-alpine as base
 
-RUN apk add --no-cache libc6-compat
+# hadolint ignore=DL3018
+RUN apk add --no-cache gcompat
 
 USER node
 WORKDIR /app
@@ -26,7 +27,8 @@ FROM base as build
 RUN npm ci && \
     npm cache clean --force
 COPY --chown=node:node . .
-RUN npm run build
+RUN npm run build && \
+    npm prune --production
 
 # Pre-production
 FROM build as pre-prod

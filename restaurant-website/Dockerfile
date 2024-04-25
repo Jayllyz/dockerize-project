@@ -7,6 +7,7 @@ WORKDIR /var/www/html
 ENV APP_ENV=dev
 ENV USER=www-data
 
+# hadolint ignore=DL3018
 RUN apk add --no-cache \
     curl \
     icu-dev && \
@@ -15,6 +16,7 @@ RUN apk add --no-cache \
 
 # Install Symfony CLI
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
+# hadolint ignore=DL3018
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' | ash && \
     apk add --no-cache symfony-cli
 
@@ -41,6 +43,7 @@ WORKDIR /var/www/html
 ENV APP_ENV=prod
 ENV USER=www-data
 
+# hadolint ignore=DL3018
 RUN apk add --no-cache icu-dev && \
     docker-php-ext-configure intl && \
     docker-php-ext-install intl  && \

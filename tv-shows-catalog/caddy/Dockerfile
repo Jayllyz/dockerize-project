@@ -1,5 +1,6 @@
 FROM caddy:2.7-alpine
 
+# hadolint ignore=DL3018
 RUN apk add --no-cache nss-tools && \
     mkdir -p /etc/caddy /srv /data/caddy /config/caddy && \
     addgroup -S caddy && adduser -D -S --no-create-home -G caddy caddy && \

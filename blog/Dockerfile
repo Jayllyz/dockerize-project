@@ -7,6 +7,7 @@ ENV GROUP_ID=2001
 ENV USER_NAME=blog
 ENV GROUP_NAME=blog
 
+# hadolint ignore=DL3008
 RUN groupadd -g ${GROUP_ID} ${GROUP_NAME} && \
     useradd -l -u ${USER_ID} -g ${GROUP_NAME} -m ${USER_NAME} && \
     apt-get update && \
