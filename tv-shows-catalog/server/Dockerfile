@@ -1,5 +1,5 @@
 # Base server
-FROM node:21-alpine as base
+FROM node:22-alpine as base
 
 # hadolint ignore=DL3018
 RUN apk add --no-cache gcompat
